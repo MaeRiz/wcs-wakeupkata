@@ -1,74 +1,88 @@
-// Tu travailles sur le site web d'un magasin en ligne qui liste des produits.
-// Chaque produit est noté par les utilisateurs et cette note influence l'ordre dans lequel les produits sont affichés.
-// Chaque produit est représenté par un objet contenant les informations suivantes : id, nom, catégorie, prix, et note moyenne.
-// A partir d'un tableau de ces produits, crée une fonction sortByRating() qui triera le tableau de la meilleure note à la moins élevée :
+/*
 
-// Crée ensuite une fonction filterByCategory(categoryName) qui retournera la liste des produits de la catégorie indiquée en argument
+Ensuite on va parler température.
+Objectif : crée une fonction de conversion de température universelle convertTemperature().
+La fonction doit pouvoir convertir n'importe quelle température entre les unités Celsius, Fahrenheit, et Kelvin.
 
-// DATA
-const products = [
-  {
-    id: 1,
-    name: "Smartphone XY",
-    category: "Électronique",
-    price: 799.99,
-    rating: 4.6,
-  },
-  {
-    id: 2,
-    name: "Basketball Pro Ball",
-    category: "Sport",
-    price: 29.99,
-    rating: 4.2,
-  },
-  {
-    id: 3,
-    name: "Casque Audio Sans Fil",
-    category: "Électronique",
-    price: 199.99,
-    rating: 4.8,
-  },
-  {
-    id: 4,
-    name: "Série de Romans Fantasy",
-    category: "Livres",
-    price: 59.99,
-    rating: 4.5,
-  },
-  {
-    id: 5,
-    name: "Montre Connectée",
-    category: "Électronique",
-    price: 249.99,
-    rating: 4.4,
-  },
-];
+Cette fonction prendra 3 paramètres :
+value : la température à convertir de type number
+fromUnity : l'unité de température d'origine de type string
+toUnity : l'unité de température cible de type string
 
-// FUNCTIONS
-const sortByRating = (products) => {
-  return products.sort(function (a, b) {
-    return b.rating - a.rating;
-  });
+La fonction doit retourner un résultat avec un maximum de deux décimales.
+
+Pour info, voici Les formules de conversion entre les échelles de température sont les suivantes :
+De Celsius à Fahrenheit : F=C×9/5+32
+De Celsius à Kelvin : K=C+273.15
+De Fahrenheit à Celsius : C=(F−32)×5/9
+De Fahrenheit à Kelvin : K=(F+459.67)×5/9
+De Kelvin à Celsius : C=K−273.15
+De Kelvin à Fahrenheit : F=K×9/5−459.67
+
+Pense à utiliser le switch :clin_d'œil:
+
+*/
+
+const convertTemperature = (value, fromUnity, toUnity) => {
+  switch (fromUnity) {
+    case "C":
+      switch (toUnity) {
+        case "C":
+          console.log("Celsius to Celsius: " + value.toFixed(2));
+          break;
+        case "F":
+          console.log(
+            "Celsius to Fahrenheit: " + ((value * 9) / 5 + 32).toFixed(2)
+          );
+          break;
+        case "K":
+          console.log("Celsius to Kelvin: " + (value + 273.15).toFixed(2));
+          break;
+      }
+      break;
+
+    case "F":
+      switch (toUnity) {
+        case "C":
+          console.log(
+            "Fahrenheit to Celsius: " + (((value - 32) * 5) / 9).toFixed(2)
+          );
+          break;
+        case "F":
+          console.log("Fahrenheit to Fahrenheit: " + value.toFixed(2));
+          break;
+        case "K":
+          console.log(
+            "Fahrenheit to Kelvin: " + (((value + 459.67) * 5) / 9).toFixed(2)
+          );
+          break;
+      }
+      break;
+
+    case "K":
+      switch (toUnity) {
+        case "C":
+          console.log("Kelvin to Celsius: " + (value - 273.15).toFixed(2));
+          break;
+        case "F":
+          console.log(
+            "Kelvin to Fahrenheit: " + ((value * 9) / 5 - 459.67).toFixed(2)
+          );
+          break;
+        case "K":
+          console.log("Kelvin to Kelvin: " + value.toFixed(2));
+          break;
+      }
+      break;
+  }
 };
 
-const filterByCategory = (categoryName, products) => {
-  return products.filter(
-    (item) => item.category.toUpperCase() == categoryName.toUpperCase()
-  );
-};
-
-// PRINTS FOR TESTS
-const PrintSortedByRating = () => {
-  console.log("Liste des produits par ordre de notes: ");
-  console.log(sortByRating(products));
-};
-
-const PrintFilterByCat = (cat) => {
-  console.log("Liste des produits par catégorie: " + cat);
-  console.log(filterByCategory(cat, products));
-};
-
-PrintSortedByRating();
-PrintFilterByCat("Livres");
-PrintFilterByCat("électronique");
-PrintFilterByCat("sporT");
+convertTemperature(296.15, "K", "K");
+convertTemperature(296.15, "K", "F");
+convertTemperature(296.15, "K", "C");
+convertTemperature(23, "C", "K");
+convertTemperature(23, "C", "F");
+convertTemperature(23, "C", "C");
+convertTemperature(73.4, "F", "K");
+convertTemperature(73.4, "F", "F");
+convertTemperature(73.4, "F", "C");
