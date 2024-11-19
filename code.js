@@ -1,74 +1,38 @@
-// Tu travailles sur le site web d'un magasin en ligne qui liste des produits.
-// Chaque produit est noté par les utilisateurs et cette note influence l'ordre dans lequel les produits sont affichés.
-// Chaque produit est représenté par un objet contenant les informations suivantes : id, nom, catégorie, prix, et note moyenne.
-// A partir d'un tableau de ces produits, crée une fonction sortByRating() qui triera le tableau de la meilleure note à la moins élevée :
+// Wake Up Kataaaaaa 🥷
 
-// Crée ensuite une fonction filterByCategory(categoryName) qui retournera la liste des produits de la catégorie indiquée en argument
+// Le but est de convertir un sigle non abbrégé en sa version abbrégée (majuscules séparées par des points).
+// Exemple : 'Wild Code School' => 'W.C.S.'
 
-// DATA
-const products = [
-  {
-    id: 1,
-    name: "Smartphone XY",
-    category: "Électronique",
-    price: 799.99,
-    rating: 4.6,
-  },
-  {
-    id: 2,
-    name: "Basketball Pro Ball",
-    category: "Sport",
-    price: 29.99,
-    rating: 4.2,
-  },
-  {
-    id: 3,
-    name: "Casque Audio Sans Fil",
-    category: "Électronique",
-    price: 199.99,
-    rating: 4.8,
-  },
-  {
-    id: 4,
-    name: "Série de Romans Fantasy",
-    category: "Livres",
-    price: 59.99,
-    rating: 4.5,
-  },
-  {
-    id: 5,
-    name: "Montre Connectée",
-    category: "Électronique",
-    price: 249.99,
-    rating: 4.4,
-  },
-];
+// Dans un second temps, ajouter un 1er cas particulier Société Nationale du Chemin de Fer Français doit donner
+// 'S.N.C.F.' et non ‘S.N.D.C.D.F.F’ , tandis que 'Electricité de France' doit bien donner 'E.D.F.'
 
-// FUNCTIONS
-const sortByRating = (products) => {
-  return products.sort(function (a, b) {
-    return b.rating - a.rating;
+// Puis un autre cas particulier 'World Wide Web Consortium' doit donner W.3.C.
+
+// Les autres sigles fonctionnent bien entendu toujours comme attendus.
+
+const exempted = {
+  "Société Nationale du Chemin de Fer Français": "S.N.C.F.",
+  "Electricité de France": "E.D.F.",
+  "World Wide Web Consortium": "W.3.C.",
+};
+
+const abbreviate = (phrase) => {
+  if (phrase in exempted) return exempted[phrase];
+
+  const words = phrase.replace("'", " ").split(" ");
+  let abbreged = [];
+  words.map((item) => {
+    letters = item.split("");
+    if (letters[0] == letters[0].toUpperCase()) {
+      abbreged.push(letters[0]);
+    }
   });
+  return abbreged.join(".") + ".";
 };
 
-const filterByCategory = (categoryName, products) => {
-  return products.filter(
-    (item) => item.category.toUpperCase() == categoryName.toUpperCase()
-  );
-};
-
-// PRINTS FOR TESTS
-const PrintSortedByRating = () => {
-  console.log("Liste des produits par ordre de notes: ");
-  console.log(sortByRating(products));
-};
-
-const PrintFilterByCat = (cat) => {
-  console.log("Liste des produits par catégorie: " + cat);
-  console.log(filterByCategory(cat, products));
-};
-
-PrintSortedByRating();
-PrintFilterByCat("Livres");
-PrintFilterByCat("électronique");
-PrintFilterByCat("sporT");
+console.log(abbreviate("Reseau de Transport d'Eléctricité"));
+console.log(abbreviate("Wild Code School de Lyon"));
+console.log(abbreviate("World Wide Web Consortium"));
+console.log(abbreviate("Electricité de France"));
+console.log(abbreviate("Concepteur Développeur d'Applications"));
+console.log(abbreviate("Société Nationale du Chemin de Fer Français"));
